@@ -33,7 +33,10 @@ function canvasmove(ev) {
             imageData = context.getImageData(0, 0, width, height);
         }
 
+        context.save()
         var x = mouseX, y = mouseY;
+        context.globalAlpha=1;
+        context.strokeStyle='#222';
         context.beginPath();
         context.lineWidth = 2;
         context.moveTo(x - 4, y - 4);
@@ -45,6 +48,7 @@ function canvasmove(ev) {
         context.lineWidth = 1.5;
         context.arc(x, y, 20, 0, 2 * Math.PI);
         context.stroke();
+        context.restore();
     }
 }
 
