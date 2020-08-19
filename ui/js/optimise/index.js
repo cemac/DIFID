@@ -167,13 +167,15 @@ function load(err, ...dt) {
 
     shift = d3.select("canvas").node().getBoundingClientRect();
 
+    
+    draw_topics(data, width);
     //
+    label();
     label();
     var zl = 0.6;
     zoomed({ k: zl, x: (1 - zl) * width / 2, y: (1 - zl) * width / 2 });
-    label();
 
-    draw_topics(data, width);
+
     console.log("data loaded");
 }
 
