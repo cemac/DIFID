@@ -107,7 +107,8 @@ function zoomed(transform) {
     }
 
     //console.log(transform)
-    data.zoom = (1 / transform.k) ** 0.5 || 1;
+    data.zoom = (1 / transform.k) ** 0.5 
+    data.zoom = data.zoom>=1?data.zoom : 1;
 
     //d3.selectAll(".annotation-group").remove();
     context.save();
@@ -155,48 +156,51 @@ function zoomed(transform) {
 }
 
 function sliderchange() {
-    data.filtered = data.tsne;
-    if (data.topicfilter) {
-        var topics = data.topicfilter.map(d => d.data.name);
+    window.data.filtered = window.data.tsne;
+    if (window.data.topicfilter) {
+        var topics = window.data.topicfilter.map(d => d.data.name);
         // topiics
-        var toplev = data.hierarchy
+        var toplev = window.data.hierarchy
             .filter(d => topics.includes(d.l3))
             .map(d => d.id);
         var pc =
-            data.weight(parseFloat(document.getElementById("points").value)) **
+            window.data.weight(parseFloat(document.getElementById("points").value)) **
             2;
 
-        data.filtered = data.filtered.filter(d => {
-            var d = data.topics.get(d.doc_id);
+        window.data.filtered = window.data.filtered.filter(d => {
+            var d = window.data.topics.get(d.doc_id);
             return (d.score > pc) & toplev.includes("" + d.topic_id);
         });
     } else {
         var pc =
-            data.weight(parseFloat(document.getElementById("points").value)) **
+            window.data.weight(parseFloat(document.getElementById("points").value)) **
             2;
 
-        data.filtered = data.filtered.filter(d => {
-            return data.topics.get(d.doc_id).score > pc;
+        window.data.filtered = window.data.filtered.filter(d => {
+            return window.data.topics.get(d.doc_id).score > pc;
         });
     }
 
-    if (data.continentselection) {
+    if (window.data.continentselection) {
         console.log(data.continentselection, data.filtered);
 
-        data.filtered = data.filtered.filter(d => {
-            var cs = data.info.get(d.doc_id).continent;
-            return data.continentselection.includes(cs);
+        window.data.filtered = window.data.filtered.filter(d => {
+            var cs = window.data.info.get(d.doc_id).continent;
+            return window.data.continentselection.includes(cs);
         });
     }
 
     var pc =
-        data.weight(parseFloat(document.getElementById("points").value)) ** 2;
-    data.filtered = data.filtered.filter(
-        d => data.topics.get(d.doc_id).score > pc
+        window.data.weight(parseFloat(document.getElementById("points").value)) ** 2;
+    window.data.filtered = window.data.filtered.filter(
+        d => window.data.topics.get(d.doc_id).score > pc
     );
 
-    if (data.showlabel) {
+    if (window.data.showlabel) {
         label();
     }
     draw();
+    imageData = undefined; 
+    // save an updated still
+    
 }

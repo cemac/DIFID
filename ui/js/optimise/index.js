@@ -175,7 +175,7 @@ function load(err, ...dt) {
     var zl = 0.6;
     zoomed({ k: zl, x: (1 - zl) * width / 2, y: (1 - zl) * width / 2 });
 
-
+    d3.select('#title').text('')
     console.log("data loaded");
 }
 
