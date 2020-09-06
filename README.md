@@ -1,4 +1,6 @@
-# DIFID
+# DIFID [![DOI](https://zenodo.org/badge/276594163.svg)](https://zenodo.org/badge/latestdoi/276594163)
+
+
 ### URL
 <a href='https://cemac.github.io/DIFID/ui/'>https://cemac.github.io/DIFID/ui/</a>
 
